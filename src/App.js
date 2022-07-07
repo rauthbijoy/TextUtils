@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import NavBar from "./components/NavBar";
 import FormBox from "./components/FormBox";
 import AboutUs from "./components/AboutUs";
+import Alert from "./components/Alert";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Routes,
+} from "react-router-dom";
 
 function App() {
   //this is for dark mode in navbar------//
@@ -10,47 +18,74 @@ function App() {
   const toggleBtn = () => {
     if (mode === "light") {
       setMode("dark");
-      document.body.style.backgroundColor = 'black';
+      document.body.style.backgroundColor = "black";
+      showAlert("Dark Mode has been Enabled", "success");
     } else {
       setMode("light");
-      document.body.style.backgroundColor = 'white';
+      document.body.style.backgroundColor = "white";
+      showAlert("Light Mode has been Enabled", "success");
     }
   };
   //---------//
 
-  //this for UpperCase conversion logic//
+  //form box logic//
   const [text, setText] = useState("Enter Your Text Here!");
+  const [alert, setAlert] = useState("this is the alert through useState");
 
   const handleUpClick = () => {
     let newText = text.toUpperCase();
     setText(newText);
+    showAlert("Your text have been converted to Uppercase", "success");
   };
 
   const handleOnChange = (event) => {
-    setText(event.target.value);    //gets the value entered in a field.
+    setText(event.target.value); //gets the value entered in a field.
   };
   //---------//
 
+  //for alert//
+  const showAlert = (message, type) => {
+    setAlert({
+      message: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setAlert(null);
+    }, 2000);
+  };
+
+  //----------//
+
   return (
     <>
-      <NavBar
-        about="About TextUtils"
-        mode={mode}
-        toggleBtn={toggleBtn}
-        title="TextUtils"
-      />
+      <Router>
+        <NavBar
+          about="About TextUtils"
+          mode={mode}
+          toggleBtn={toggleBtn}
+          title="TextUtils"
+        />
 
-      <FormBox
-        handleUpClick={handleUpClick}
-        handleOnChange={handleOnChange}
-        text={text}
-        heading="Enter your Text Below"
-        mode = {mode}
-      />
+        <Alert alert={alert} />
 
-      <AboutUs
-      about="About TextUtils"
-      />
+        <Routes>
+          <Route path="/about" element={<AboutUs about="About TextUtils" />} />
+          
+          <Route
+            path="/"
+            element={
+              <FormBox
+                handleUpClick={handleUpClick}
+                handleOnChange={handleOnChange}
+                text={text}
+                heading="Enter your Text Below"
+                mode={mode}
+                alert={alert}
+              />
+            }
+          />
+        </Routes>
+      </Router>
     </>
   );
 }
