@@ -5,9 +5,7 @@ import AboutUs from "./components/AboutUs";
 import Alert from "./components/Alert";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link,
   Routes,
 } from "react-router-dom";
 
@@ -45,7 +43,7 @@ function App() {
 
   //for alert//
   const showAlert = (message, type) => {
-    setAlert({
+    setAlert({ 
       message: message,
       type: type,
     });
@@ -53,6 +51,11 @@ function App() {
       setAlert(null);
     }, 2000);
   };
+
+  // const capitaLization = (word) =>{
+  //   let newWord = word.toString.toLowerCase();
+  //   return newWord.charAt(0).toUpperCase + newWord.slice(1)
+  //   }
 
   //----------//
 
@@ -67,7 +70,9 @@ function App() {
           title="TextUtils"
         />
 
-        <Alert alert={alert} />
+        <Alert alert={alert} 
+        // capitaLization={capitaLization}
+        />
 
         <Routes>
           <Route
