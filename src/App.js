@@ -57,6 +57,7 @@ function App() {
   //----------//
 
   return (
+    //always write exact before path to exactly match with the path//
     <>
       <Router>
         <NavBar
@@ -69,9 +70,14 @@ function App() {
         <Alert alert={alert} />
 
         <Routes>
-          <Route path="/about" element={<AboutUs about="About TextUtils" />} />
-          
           <Route
+            exact
+            path="/about"
+            element={<AboutUs about="About TextUtils" />}
+          />
+
+          <Route
+            exact
             path="/"
             element={
               <FormBox
