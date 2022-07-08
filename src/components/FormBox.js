@@ -25,7 +25,7 @@ function FormBox(props) {
       </button>
       <h2 className="my-3">Summary</h2>
       <p>
-        {props.text.split(" ").length} Word & {props.text.length} Characters
+        {props.text.split(" ").filter((element)=>{return element.length!==0}).length} Word & {props.text.length} Characters
       </p>
       <h3>Preview</h3>
       <p>
